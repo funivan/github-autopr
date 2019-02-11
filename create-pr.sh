@@ -5,16 +5,15 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   echo "Undefined GITHUB_TOKEN environment variable."
   exit 1
 fi
-ACTION="$(jq -r ".action" "$GITHUB_EVENT_PATH")";
-echo "Github action id: ${ACTION}";
+
 if [[ "$(jq -r ".created" "$GITHUB_EVENT_PATH")" != true ]]; then
   echo "This is not a create push branch!"
-  exit 2
+  exit 78
 fi
 
 if [[ "$(jq -r ".head_commit" "$GITHUB_EVENT_PATH")" == "null" ]]; then
   echo "This push has not commits!"
-  exit 3
+  exit 1
 fi
 
 if [[ "$1" != "" && "$2" != "" ]];  then
@@ -22,7 +21,7 @@ if [[ "$1" != "" && "$2" != "" ]];  then
     condition=$(echo $value | grep "$2" | wc -l )
     if [[ "$condition" == "0" ]]; then
       echo "Negative condition. Stopping program"
-      exit 0;
+      exit 78;
     else
       echo "Positive condition result. Continue"
     fi
