@@ -20,7 +20,7 @@ From that we can get the commit authors
 name and other important data. We can skip this action by checking this data.
 
 Action support two arguments:
-- First: argument JQ selector which will select data from the
+- First: argument JQ selector which will select data from the event data file
 - Second: grep regex
 ```workflow
 action "Create PR" {
