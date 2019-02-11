@@ -39,7 +39,8 @@ response=$(curl \
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
  -s \
- -H "${AUTH_HEADER}" -H "Accept: application/vnd.github.v3+json" \
+ -H "${AUTH_HEADER}" \
+ -H "Accept: application/vnd.github.v3+json" \
  ${PULLS_URI})
 
 echo "$response"
