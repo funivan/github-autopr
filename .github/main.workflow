@@ -6,5 +6,5 @@ workflow "Fast prototype" {
 action "Create PR" {
   uses = "./"
   secrets = ["GITHUB_TOKEN"]
-  args = ".head_commit.message #pr$"
+  args = ".repository.default_branch -pr$"
 }
