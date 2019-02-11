@@ -35,7 +35,7 @@ URI=https://api.github.com
 PULLS_URI="${URI}/repos/$REPO_FULLNAME/pulls"
 AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 
-new_pr_resp=$(curl \
+response=$(curl \
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
  -s \
