@@ -1,4 +1,4 @@
-workflow "New workflow" {
+workflow "Fast prototype" {
   on = "push"
   resolves = ["Create PR"]
 }
