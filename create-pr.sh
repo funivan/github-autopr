@@ -12,8 +12,13 @@ if [[ "$(jq -r ".head_commit" "$GITHUB_EVENT_PATH")" == "null" ]]; then
 fi
 
 if [[ "$1" != "" && "$2" != "" ]];  then
-    value="$(jq -r "$1" "$GITHUB_EVENT_PATH")"
-    condition=$(echo $value | grep "^$2$" | wc -l )
+    data="$(jq -r "$1" "$GITHUB_EVENT_PATH")"
+    regex="^$2$"
+    echo "Condition:
+    data  : $data
+    regex : $regex
+    "
+    condition=$(echo $data | grep $regex | wc -l )
     if [[ "$condition" == "0" ]]; then
       echo "Negative condition. Stopping program"
       exit 78;
