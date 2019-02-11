@@ -6,14 +6,9 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 
-if [[ "$(jq -r ".created" "$GITHUB_EVENT_PATH")" != true ]]; then
-  echo "This is not a create push branch!"
-  exit 78
-fi
-
 if [[ "$(jq -r ".head_commit" "$GITHUB_EVENT_PATH")" == "null" ]]; then
   echo "This push has not commits!"
-  exit 1
+  exit 78
 fi
 
 if [[ "$1" != "" && "$2" != "" ]];  then
@@ -40,11 +35,12 @@ URI=https://api.github.com
 PULLS_URI="${URI}/repos/$REPO_FULLNAME/pulls"
 AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 
-new_pr_resp=$(curl \
+response=$(curl \
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
  -s \
- -H "${AUTH_HEADER}" -H "Accept: application/vnd.github.v3+json" \
+ -H "${AUTH_HEADER}" \
+ -H "Accept: application/vnd.github.v3+json" \
  ${PULLS_URI})
 
 echo "$response"
