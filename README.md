@@ -16,7 +16,7 @@ action "Create PR" {
 ## Filter
 In every runtime environment for an Action we have file that holds the JSON 
 data for the event that was triggered. From that we can get the commit authors 
-name and other important data. We can skip thia action by checking this data.
+name and other important data. We can skip this action by checking this data.
 
 Action support two arguments:
 - First: argument JQ selector which will select data from the
