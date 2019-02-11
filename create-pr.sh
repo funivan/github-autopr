@@ -36,7 +36,6 @@ echo "Creating new PR:
 message : $COMMIT_MESSAGE
 repo    : $REPO_FULLNAME
 "
-
 URI=https://api.github.com
 PULLS_URI="${URI}/repos/$REPO_FULLNAME/pulls"
 AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
