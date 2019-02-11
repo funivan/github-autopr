@@ -40,13 +40,13 @@ URI=https://api.github.com
 PULLS_URI="${URI}/repos/$REPO_FULLNAME/pulls"
 AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 
-response=$(curl \
+curl -o -I -L -s -w "%{http_code}"
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
  -s \
  -H "${AUTH_HEADER}" \
  -H "Accept: application/vnd.github.v3+json" \
- ${PULLS_URI})
+ ${PULLS_URI}
 
-echo "$response"
+echo "http_code: $http_code"
 echo "##################################################"
