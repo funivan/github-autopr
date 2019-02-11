@@ -25,15 +25,15 @@ Action support two arguments:
 action "Create PR" {
   uses = "funivan/github-autopr@master"
   secrets = ["GITHUB_TOKEN"]
-  args = ".head_commit.message #pr"
+  args = ".head_commit.message .*#pr.*"
 }
 ```
 Under the hood we will fetch commit message and check if it contains `#pr` word.
 ```
-result=$(echo "some test commit message #pr" | grep "#pr" | wc -l )
+result=$(echo "some test commit message #pr" | grep "^.*#pr.*$" | wc -l )
 ```
 If result is positive - we will continue our action. If negative - stop it immediately.
 
 ### More example
 Check if branch ends with `-pr` word 
-`args = ".repository.default_branch -pr$"`
+`args = ".repository.default_branch .*-pr"`
