@@ -13,7 +13,7 @@ fi
 
 if [[ "$1" != "" && "$2" != "" ]];  then
     value="$(jq -r "$1" "$GITHUB_EVENT_PATH")"
-    condition=$(echo $value | grep "$2" | wc -l )
+    condition=$(echo $value | grep "^$2$" | wc -l )
     if [[ "$condition" == "0" ]]; then
       echo "Negative condition. Stopping program"
       exit 78;
