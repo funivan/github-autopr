@@ -36,7 +36,7 @@ message : $COMMIT_MESSAGE
 repo    : $REPO_FULLNAME
 "
 
-RESPONSE_CODE=$(curl -o /dev/null -s -w "%{http_code}\n"
+RESPONSE_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" \
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
  -H "Authorization: token $GITHUB_TOKEN" \
