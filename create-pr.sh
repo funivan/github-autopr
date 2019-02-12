@@ -1,6 +1,6 @@
 #!/bin/bash
-echo "##################################################"
 set -e
+echo "~~~~ Start Creating PR action  ~~~~";
 if [[ -z "$GITHUB_TOKEN" ]]; then
   echo "Undefined GITHUB_TOKEN environment variable."
   exit 1
@@ -14,16 +14,19 @@ fi
 if [[ "$1" != "" && "$2" != "" ]];  then
     data="$(jq -r "$1" "$GITHUB_EVENT_PATH")"
     regex="^$2$"
-    echo "Condition:
-    data  : $data
-    regex : $regex
-    "
+    if [[ "$3" == "-v" || "$3" == "-vv" ]]; then
+      echo "~~~~ Condition ~~~~";
+      echo "
+       data  : $data
+       regex : $regex
+      "
+    fi
     condition=$(echo $data | grep $regex | wc -l )
     if [[ "$condition" == "0" ]]; then
-      echo "Negative condition. Stopping program"
+      echo "✖ Negative condition. Stopping program"
       exit 78;
     else
-      echo "Positive condition result. Continue"
+      echo "✓ Positive condition result. Continue"
     fi
 fi
 
@@ -31,9 +34,10 @@ COMMIT_MESSAGE="$(jq -r ".head_commit.message" "$GITHUB_EVENT_PATH")"
 REPO_FULLNAME=$(jq -r ".repository.full_name" "$GITHUB_EVENT_PATH")
 DEFAULT_BRANCH=$(jq -r ".repository.default_branch" "$GITHUB_EVENT_PATH")
 
-echo "Creating new PR:
-message : $COMMIT_MESSAGE
-repo    : $REPO_FULLNAME
+echo "~~~~ Data ~~~~";
+echo "
+title   : $COMMIT_MESSAGE
+ref     : $GITHUB_REF
 "
 
 RESPONSE_CODE=$(curl -o .output -s -w "%{http_code}\n" \
@@ -42,10 +46,9 @@ RESPONSE_CODE=$(curl -o .output -s -w "%{http_code}\n" \
  -H "Authorization: token $GITHUB_TOKEN" \
  -H "Accept: application/vnd.github.v3+json" \
  "https://api.github.com/repos/$REPO_FULLNAME/pulls")
-
-echo "RESPONSE_CODE: $RESPONSE_CODE"
-if [[ "$3" == "-v" ]]; then
- echo "RESPONSE_BODY: "
+echo "~~~~ Response ~~~~";
+echo "Code: $RESPONSE_CODE"
+if [[ "$3" == "-vv" ]]; then
+ echo "Body: "
  cat .output
 fi
-echo "##################################################"
