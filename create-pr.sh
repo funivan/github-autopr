@@ -36,17 +36,16 @@ message : $COMMIT_MESSAGE
 repo    : $REPO_FULLNAME
 "
 
-URI=https://api.github.com
-PULLS_URI="${URI}/repos/$REPO_FULLNAME/pulls"
-AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
-
-response=$(curl \
+RESPONSE_CODE=$(curl -o .output -s -w "%{http_code}\n" \
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
- -s \
- -H "${AUTH_HEADER}" \
+ -H "Authorization: token $GITHUB_TOKEN" \
  -H "Accept: application/vnd.github.v3+json" \
- ${PULLS_URI})
+ "https://api.github.com/repos/$REPO_FULLNAME/pulls")
 
-echo "$response"
+echo "RESPONSE_CODE: $RESPONSE_CODE"
+if [[ "$3" == "-v" ]]; then
+ echo "RESPONSE_BODY: "
+ cat .output
+fi
 echo "##################################################"
