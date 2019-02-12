@@ -34,7 +34,7 @@ name and other important data. We can skip this action by checking this data.
 #### Create PR if the commit message contains `#pr` hashtag
 ```workflow
 action "Create PR" {
-  uses = "funivan/github-autopr@master"
+  uses = "funivan/github-autopr@0.1.0"
   secrets = ["GITHUB_TOKEN"]
   args = ".head_commit.message .*#pr.*"
 }
