@@ -14,10 +14,13 @@ fi
 if [[ "$1" != "" && "$2" != "" ]];  then
     data="$(jq -r "$1" "$GITHUB_EVENT_PATH")"
     regex="^$2$"
-    echo "Condition:
-    data  : $data
-    regex : $regex
-    "
+    echo "~~~~ Condition ~~~~";
+    if [[ "$3" == "-v" || "$3" == "-vv" ]]; then
+      echo "
+      data  : $data
+      regex : $regex
+      "
+    fi
     condition=$(echo $data | grep $regex | wc -l )
     if [[ "$condition" == "0" ]]; then
       echo "Negative condition. Stopping program"
@@ -31,11 +34,12 @@ COMMIT_MESSAGE="$(jq -r ".head_commit.message" "$GITHUB_EVENT_PATH")"
 REPO_FULLNAME=$(jq -r ".repository.full_name" "$GITHUB_EVENT_PATH")
 DEFAULT_BRANCH=$(jq -r ".repository.default_branch" "$GITHUB_EVENT_PATH")
 
+echo "~~~~ Action ~~~~";
 echo "Creating new PR:
 message : $COMMIT_MESSAGE
 repo    : $REPO_FULLNAME
 "
-
+echo "~~~~ Response ~~~~";
 RESPONSE_CODE=$(curl -o .output -s -w "%{http_code}\n" \
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
@@ -43,9 +47,9 @@ RESPONSE_CODE=$(curl -o .output -s -w "%{http_code}\n" \
  -H "Accept: application/vnd.github.v3+json" \
  "https://api.github.com/repos/$REPO_FULLNAME/pulls")
 
-echo "RESPONSE_CODE: $RESPONSE_CODE"
-if [[ "$3" == "-v" ]]; then
- echo "RESPONSE_BODY: "
+echo "Response code : $RESPONSE_CODE"
+if [[ "$3" == "-vv" ]]; then
+ echo "Response body : "
  cat .output
 fi
 echo "##################################################"
