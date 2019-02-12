@@ -39,8 +39,12 @@ action "Create PR" {
 
 #### Output data that is used for the condition
 Just add third parameter `-v`
-`args = ".repository.default_branch .*-pr -v" `
-If you need to get output ot the API call use `-vv` (very verbose level)
+
+```workflow
+args = ".repository.default_branch .*-pr -v"
+```
+
+If you need to get output (responsebody) of the API call use `-vv` (very verbose level)
  
 ## How it works
 Under the hood we will fetch commit message and check if it contains `#pr` word.
