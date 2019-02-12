@@ -14,6 +14,9 @@ action "Create PR" {
 }
 ```
 
+### Demo
+![How it works](resources/demo.gif)
+
 ## Filter
 In every runtime environment for an Action we have file that holds the JSON 
 data for the event [PushEvent payload](https://developer.github.com/v3/activity/events/types/#pushevent).
