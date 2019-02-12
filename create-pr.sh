@@ -16,10 +16,8 @@ if [[ "$1" != "" && "$2" != "" ]];  then
     regex="^$2$"
     if [[ "$3" == "-v" || "$3" == "-vv" ]]; then
       echo "~~~~ Condition ~~~~";
-      echo "
-       data  : $data
-       regex : $regex
-      "
+      echo "data  : $data"
+      echo "regex : $regex"
     fi
     condition=$(echo $data | grep $regex | wc -l )
     if [[ "$condition" == "0" ]]; then
