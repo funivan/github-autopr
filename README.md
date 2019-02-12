@@ -17,6 +17,8 @@ action "Create PR" {
   <b>Demo:</b><br>
   <img src="resources/demo.gif" alt="how it works">
 </p>
+
+
 ## Filter
 In every runtime environment for an Action we have file that holds the JSON 
 data for the event [PushEvent payload](https://developer.github.com/v3/activity/events/types/#pushevent).
