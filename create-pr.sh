@@ -36,7 +36,7 @@ message : $COMMIT_MESSAGE
 repo    : $REPO_FULLNAME
 "
 
-RESPONSE_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" \
+RESPONSE_CODE=$(curl -o .output -s -w "%{http_code}\n" \
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
  -H "Authorization: token $GITHUB_TOKEN" \
@@ -44,4 +44,8 @@ RESPONSE_CODE=$(curl -o /dev/null -s -w "%{http_code}\n" \
  "https://api.github.com/repos/$REPO_FULLNAME/pulls")
 
 echo "RESPONSE_CODE: $RESPONSE_CODE"
+if [[ "$3" == "-v" ]]; then
+ echo "RESPONSE_BODY: "
+ cat .output
+fi
 echo "##################################################"

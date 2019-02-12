@@ -6,5 +6,5 @@ workflow "Fast prototype" {
 action "Create PR" {
   uses = "./"
   secrets = ["GITHUB_TOKEN"]
-  args = ".ref .*-pr"
+  args = ".ref .*-pr -v"
 }
