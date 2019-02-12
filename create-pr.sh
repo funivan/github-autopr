@@ -28,7 +28,7 @@ if [[ "$1" != "" && "$2" != "" ]];  then
     fi
 fi
 
-COMMIT_MESSAGE="$(jq -r ".head_commit.message" "$GITHUB_EVENT_PATH")"
+COMMIT_MESSAGE="$(jq -r ".head_commit.message" "$GITHUB_EVENT_PATH" | head -1)"
 REPO_FULLNAME=$(jq -r ".repository.full_name" "$GITHUB_EVENT_PATH")
 DEFAULT_BRANCH=$(jq -r ".repository.default_branch" "$GITHUB_EVENT_PATH")
 
