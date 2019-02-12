@@ -41,7 +41,6 @@ AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 RESPONSE_CODE=$(curl -o /dev/null -s -w "%{http_code}\n"
  --data "{\"title\":\"$COMMIT_MESSAGE\", \"head\": \"$GITHUB_REF\", \"base\": \"$DEFAULT_BRANCH\"}" \
  -X POST \
- -s \
  -H "${AUTH_HEADER}" \
  -H "Accept: application/vnd.github.v3+json" \
  "https://api.github.com/repos/$REPO_FULLNAME/pulls")
