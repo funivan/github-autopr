@@ -14,7 +14,7 @@ action "Create PR" {
 }
 ```
 <p align="center">
-  <b>Demo:</b>
+  <b>Demo:</b><br>
   <img src="resources/demo.gif" alt="how it works">
 </p>
 ## Filter
