@@ -36,8 +36,6 @@ message : $COMMIT_MESSAGE
 repo    : $REPO_FULLNAME
 "
 
-URI=https://api.github.com
-PULLS_URI="${URI}/repos/$REPO_FULLNAME/pulls"
 AUTH_HEADER="Authorization: token $GITHUB_TOKEN"
 
 RESPONSE_CODE=$(curl -o /dev/null -s -w "%{http_code}\n"
@@ -46,7 +44,7 @@ RESPONSE_CODE=$(curl -o /dev/null -s -w "%{http_code}\n"
  -s \
  -H "${AUTH_HEADER}" \
  -H "Accept: application/vnd.github.v3+json" \
- ${PULLS_URI})
+ "https://api.github.com/repos/$REPO_FULLNAME/pulls")
 
 echo "RESPONSE_CODE: $RESPONSE_CODE"
 echo "##################################################"
