@@ -34,8 +34,8 @@ DEFAULT_BRANCH=$(jq -r ".repository.default_branch" "$GITHUB_EVENT_PATH")
 
 echo "~~~~ Data ~~~~";
 echo "
-title   : $COMMIT_MESSAGE
-ref     : $GITHUB_REF
+title : $COMMIT_MESSAGE
+ref   : $GITHUB_REF
 "
 
 RESPONSE_CODE=$(curl -o .output -s -w "%{http_code}\n" \
@@ -45,8 +45,8 @@ RESPONSE_CODE=$(curl -o .output -s -w "%{http_code}\n" \
  -H "Accept: application/vnd.github.v3+json" \
  "https://api.github.com/repos/$REPO_FULLNAME/pulls")
 echo "~~~~ Response ~~~~";
-echo "Code: $RESPONSE_CODE"
+echo "Code : $RESPONSE_CODE"
 if [[ "$3" == "-vv" ]]; then
- echo "Body: "
+ echo "Body : "
  cat .output
 fi
