@@ -2,16 +2,12 @@
 This action automatically open Pull Request based on conditions.
 
 Create PR for all commits.
-```workflow
-workflow "Fast prototype" {
-  on = "push"
-  resolves = ["Create PR"]
-}
-
-action "Create PR" {
-  uses = "funivan/github-autopr@0.1.1"
-  secrets = ["GITHUB_TOKEN"]
-}
+```yaml
+steps:
+  - name: Create PR
+    uses: ./
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 <p align="center">
   <b>Demo:</b><br>
@@ -32,24 +28,24 @@ name and other important data. We can skip this action by checking this data.
 
 ## Examples
 #### Create PR if the commit message contains `#pr` hashtag
-```workflow
-action "Create PR" {
-  uses = "funivan/github-autopr@0.1.1"
-  secrets = ["GITHUB_TOKEN"]
-  args = ".head_commit.message .*#pr.*"
-}
+```yaml
+steps:
+  - name: Create PR
+    uses: ./
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    with:
+      args: .head_commit.message .*#pr.*
 ```
 #### Check if branch ends with `-pr` word 
-`args = ".repository.default_branch .*-pr"`
+`args: .repository.default_branch .*-pr`
 
 #### Output data that is used for the condition
 Just add third parameter `-v`
 
-```workflow
-args = ".repository.default_branch .*-pr -v"
-```
+`args: .repository.default_branch .*-pr -v`
 
-If you need to get output (responsebody) of the API call use `-vv` (very verbose level)
+If you need to get output (response body) of the API call use `-vv` (very verbose level)
  
 ## How it works
 Under the hood we will fetch commit message and check if it contains `#pr` word.
