@@ -1,0 +1,14 @@
+on: push
+name: Fast prototype
+jobs:
+  createPR:
+    name: Create PR
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Create PR
+      uses: ./
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: .head_commit.message .*#pr.*
