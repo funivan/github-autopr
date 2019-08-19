@@ -9,6 +9,7 @@ steps:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
 ## Demo
 <img src="resources/demo.gif" alt="how it works">
 
