@@ -11,7 +11,7 @@ steps:
 ```
 
 ## Demo
-<img src="resources/demo.gif" alt="how it works">
+![how it works](resources/demo.png)
 
 ## Filter
 In every runtime environment for an Action we have file that holds the JSON 
