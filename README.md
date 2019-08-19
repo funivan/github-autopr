@@ -9,11 +9,8 @@ steps:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
-<p align="center">
-  <b>Demo:</b><br>
-  <img src="resources/demo.gif" alt="how it works">
-</p>
-
+## Demo
+<img src="resources/demo.gif" alt="how it works">
 
 ## Filter
 In every runtime environment for an Action we have file that holds the JSON 
