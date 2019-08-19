@@ -5,7 +5,7 @@ Create PR for all commits.
 ```yaml
 steps:
   - name: Create PR
-    uses: ./
+    uses: funivan/github-autopr@0.2.0
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
