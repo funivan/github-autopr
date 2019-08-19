@@ -22,7 +22,7 @@ if [[ "$1" != "" && "$2" != "" ]];  then
     condition=$(echo $data | grep $regex | wc -l )
     if [[ "$condition" == "0" ]]; then
       echo "✖ Negative condition. Stopping program"
-      exit 78
+      exit 0
     else
       echo "✓ Positive condition result. Continue"
     fi
