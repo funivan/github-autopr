@@ -11,7 +11,7 @@ steps:
 ```
 <p align="center">
   <b>Demo:</b><br>
-  <img src="resources/demo.gif" alt="how it works">
+  <img src="resources/demo.png" alt="how it works">
 </p>
 
 
