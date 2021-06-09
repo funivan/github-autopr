@@ -19,7 +19,7 @@ if [[ "$1" != "" && "$2" != "" ]];  then
       echo "data  : $data"
       echo "regex : $regex"
     fi
-    condition=$(echo $data | grep $regex | wc -l )
+    condition=$(grep -c -- "$regex" <<<"$data")
     if [[ "$condition" == "0" ]]; then
       echo "✖ Negative condition. Stopping program"
       exit 0
