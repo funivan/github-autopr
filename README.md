@@ -29,7 +29,7 @@ name and other important data. We can skip this action by checking this data.
 ```yaml
 steps:
   - name: Create PR
-    uses: ./
+    uses: funivan/github-autopr@0.2.0
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     with:
