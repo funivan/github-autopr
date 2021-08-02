@@ -1,4 +1,7 @@
 # Changelog
+## [2021-08-02] 0.2.1
+- #20 Optimize performance. `grep` now reads data from STDIN
+
 ## [2019-08-19] 0.2.0
 - #14 Prepare action for the new yaml format
 
